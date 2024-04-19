@@ -2,7 +2,7 @@ from ultralytics import YOLO
 import os
 import cv2
 
-from utils.img_utils import draw_fall_img, get_detect_info, img_rotate, rotate_points
+from pose_detect.utils.img_utils import draw_fall_img, get_detect_info, img_rotate, rotate_points
 
 
 class Fall_Detect:
@@ -12,9 +12,11 @@ class Fall_Detect:
         self.sensitivity = sensitivity
         self.rotate_angle = [0, 90, 180, 270]
 
+
     def fall_predict(self, img):
         results = 0
         max_results = 0
+        box = None
         for angle in self.rotate_angle:
             rotated_img = img_rotate(img, angle)
             result = self.model.predict(rotated_img)  # predict on an image
@@ -36,6 +38,7 @@ class Fall_Detect:
 
 
         if max_results > self.sensitivity:
+            print(max_results)
             # new_box = []
             # new_box.append(
             #     rotate_points((box[0][0], box[0][1]), angle=360 - log_angle, center=(detect_img.shape[1] // 2, detect_img.shape[0] // 2)))
@@ -45,9 +48,9 @@ class Fall_Detect:
             detect_img = img_rotate(detect_img, 360 - log_angle)
             # model_pose = YOLO('../weights/pose.pt')
             # model_pose.predict(img, show=True, save=True)[0].show()
-            return detect_info, detect_img
+            return detect_info, detect_img, box
         else:
-            return None, img
+            return None, img, None
 # Predict with the model
 
 # if __name__ == '__main__':

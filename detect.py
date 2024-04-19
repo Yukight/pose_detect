@@ -9,13 +9,13 @@ class Detector:
 
     def __init__(self):
         self.log_img_folder = "./src/log_img"
-        self.fall_detect = Fall_Detect(weights_path='../weights/human_detection.pt', sensitivity=0.6)
+        self.fall_detect = Fall_Detect(weights_path='../weights/human_detection.pt', sensitivity=0.8)
         self.log_info = dict()
         self.gap = 5
         self.max_restore = 50
         self.frame_count = 0
         self.model_pose = YOLO('../weights/pose.pt')
-
+        self.L1_distance = 50
     def max_restore_judge(self):
         if self.frame_count > self.max_restore:
             # oldest_img_path = os.path.join(self.log_img_folder, f"{status_message}_{self.frame_count - 50}.jpg")
@@ -47,7 +47,7 @@ class Detector:
             # else:
             #     frame = cv2.imread('./src/block.jpg')
                 
-            status_message, detect_img = self.fall_detect.fall_predict(frame)
+            status_message, detect_img, box = self.fall_detect.fall_predict(frame)
 
             self.frame_count += 1
             
@@ -61,10 +61,18 @@ class Detector:
 
             if(self.status_judge(status_message)):
                 # model_pose.predict(frame, show=True, save=True)[0].show()
-                self.model_pose.predict(frame, save=True)
-                self.log_info.clear()
-                self.frame_count = 0
-                break
+                cv2.imshow('detect_img', detect_img)
+                cv2.waitKey(0)
+                Results = self.model_pose.predict(frame, save=True)
+                try:
+                    l_x, l_y, r_x, r_y = Results[0].boxes.xyxy[0].tolist()
+                except:
+                    continue
+                dis = abs(l_x - box[0][0]) + abs(l_y - box[0][1]) + abs(r_x - box[1][0]) + abs(r_y - box[1][1])
+                if dis < self.L1_distance:
+                    self.log_info.clear()
+                    self.frame_count = 0
+                    break
 
             cv2.imshow('frame', detect_img)
             key = cv2.waitKey(1)

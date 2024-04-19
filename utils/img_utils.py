@@ -49,7 +49,6 @@ def get_detect_info(log_w, log_h):
         # status_info = (round((x2 - x1) / (y2 - y1), 1))
         status_info = (round((log_w / log_h), 1))
         print(status_info)
-
         if status_info > 1.5:
             return 'lie_down'
         if status_info <= 1.5 and status_info > 0.7:
