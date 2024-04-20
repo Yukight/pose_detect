@@ -2,7 +2,7 @@ from ultralytics import YOLO
 import os
 import cv2
 
-from pose_detect.utils.img_utils import draw_fall_img, get_detect_info, img_rotate, rotate_points
+from utils.img_utils import draw_fall_img, get_detect_info, img_rotate, rotate_points
 
 
 class Fall_Detect:
