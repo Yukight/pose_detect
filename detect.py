@@ -1,3 +1,4 @@
+import time
 import cv2
 import os
 import random
@@ -70,6 +71,10 @@ class Detector:
                 cv2.imshow('detect_img', detect_img)
                 cv2.waitKey(0)
                 self.model_pose.predict(frame, save=True)
+                os.system('git add .')
+                os.system('git commit -m "update fall_predict image"')
+                os.system('git push')
+                time.sleep(2)
                 # try:
                 #     l_x, l_y, r_x, r_y = Results[0].boxes.xyxy[0].tolist()  # 返回YOLO检测框的左上、右下坐标
                 # except:
