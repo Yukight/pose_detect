@@ -70,7 +70,7 @@ class Detector:
                 # model_pose.predict(frame, show=True, save=True)[0].show()
                 cv2.imshow('detect_img', detect_img)
                 cv2.waitKey(0)
-                os.system('rm -r -f ./runs/pose/predict2')
+                # os.system('rm -r -f ./runs/pose/predict2')
                 self.model_pose.predict(frame, save=True)
                 time.sleep(5)
                 os.system('git add .')
