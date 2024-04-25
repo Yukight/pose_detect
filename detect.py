@@ -72,8 +72,11 @@ class Detector:
                 cv2.waitKey(0)
                 os.system('rm -r -f ./runs/pose/predict2')
                 self.model_pose.predict(frame, save=True)
+                time.sleep(5)
                 os.system('git add .')
+                time.sleep(5)
                 os.system('git commit -m "update fall_predict image"')
+                time.sleep(5)
                 os.system('git push')
                 time.sleep(10)
                 # try:
