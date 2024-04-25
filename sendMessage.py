@@ -60,7 +60,7 @@ class SendMessage():  # 定义发送消息的类
                 body = {
                     "touser": open_id,
                     "template_id": self.template_id,
-                    "url": "https://gitee.com/gouqijvhuacha/pose_detect/raw/mac/runs/pose/predict2/image0.jpg",  #TODO:跳转
+                    "url": "https://raw.githubusercontent.com/Yukight/pose_detect/mac/runs/pose/predict2/image0.jpg",  #TODO:跳转
                     "topcolor": "#FF0000",
                     # 对应模板中的数据模板
                     "data": {
