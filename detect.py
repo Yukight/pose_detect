@@ -75,6 +75,7 @@ class Detector:
                 os.system('git commit -m "update fall_predict image"')
                 os.system('git push')
                 self.model_pose.predict(frame, save=True)
+                time.sleep(5)
                 os.system('git add .')
                 os.system('git commit -m "update fall_predict image"')
                 os.system('git push')
