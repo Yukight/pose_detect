@@ -56,3 +56,5 @@ print(result[0].boxes[0].xywh[0].tolist()[2:])
 # cv2.imshow('img1', detect_img1)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
+# b526948590e19e74f18bfcd32c0c5ce5b68bc69b
+# 6504cbc951860b74e9fb80debb54095af04bfc0b
